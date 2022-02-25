@@ -20,7 +20,7 @@ t.add({
     "time" : time.time()
 })
 
-Block(t,time.time(),"")
+Block(t,time.time())
 chain.add_verified_block(Block)
 
 print("getting block to mine")
