@@ -11,11 +11,10 @@ class Block:
     """
     nonce = 0
 
-    def __init__(self, transactions, txn_time, prev_hash) -> None:
+    def __init__(self, transactions, txn_time) -> None:
         self.transactions = transactions
         self.txn_time = txn_time
-        self.prev_hash = prev_hash
-
+        self.prev_hash = ""
 
     def calculate_hash(self) -> str:
         """

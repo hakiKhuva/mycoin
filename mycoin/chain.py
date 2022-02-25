@@ -82,9 +82,10 @@ class Blockchain:
             {
                 "id":"".join([str(random.choice(string.ascii_letters)) for _ in range(15)]),
                 "diff" : self._difficulty,
-                "block" : Block(transactions, time.time(), self.last_block_hash)
+                "block" : Block(transactions, time.time())
             }
         )
+        self._unverified_chain[0]["block"].prev_hash = self.last_block_hash
 
     
 
@@ -121,6 +122,9 @@ class Blockchain:
 
         self._unverified_chain.remove(object)
 
+        if len(self._unverified_chain) > 0:
+            self._unverified_chain[0]["block"].prev_hash = self.last_block_hash
+
         return True
 
 
@@ -149,7 +153,8 @@ class Blockchain:
         # adding to the all transactions
         local_txns.add(txn)
 
-        b = Block(local_txns, time.time(), "")
+        b = Block(local_txns, time.time())
+        b.prev_hash = ""
         b.mine(self._difficulty,self.MAX_NONCE)
 
         self._chain.append(b)
